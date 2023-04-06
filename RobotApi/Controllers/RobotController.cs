@@ -20,16 +20,14 @@ namespace RobotApi.Controllers
         {
             System.Diagnostics.Debug.WriteLine("Get Time:" + DateTime.Now);
             var package = JsonSerializer.Serialize(DataPackage).ToString();
-            DataPackage["command"] = "stop";
+            //DataPackage["command"] = "stop";
             return package;
         }
         [HttpPut("SetTurn")]
         public void SetTurn([FromBody]Dictionary<string,string> content) 
-        {
-            
-            DataPackage["command"] = content["direction"];
+        {       
+            DataPackage["command"] = content["command"];
             DataPackage["angle"] = content["angle"];
-
             Console.WriteLine("api command: "+ DataPackage["command"] + DataPackage["angle"]);
         }
         [HttpPut("SetDirection")]
