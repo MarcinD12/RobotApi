@@ -7,7 +7,7 @@ namespace RobotApi.Controllers
     public class RobotController : Controller
     {
         //private static string Command { get; set; }
-        private static Dictionary<string, string> DataPackage = new Dictionary<string, string>() {{ "command", "stop"},{ "angle", "0" } };
+        private static Dictionary<string, string> DataPackage = new Dictionary<string, string>() { { "mode", "idle" },{ "command", "stop"},{ "angle", "0" } };
         private static double[] RadarData=new double[20];
 
         [HttpGet("GetRadarData")]
@@ -23,9 +23,10 @@ namespace RobotApi.Controllers
             //DataPackage["command"] = "stop";
             return package;
         }
-        [HttpPut("SetTurn")]
-        public void SetTurn([FromBody]Dictionary<string,string> content) 
-        {       
+        [HttpPut("SetCommands")]
+        public void SetCommands([FromBody]Dictionary<string,string> content)
+        {
+            DataPackage["mode"] = content["mode"];
             DataPackage["command"] = content["command"];
             DataPackage["angle"] = content["angle"];
             Console.WriteLine("api command: "+ DataPackage["command"] + DataPackage["angle"]);
